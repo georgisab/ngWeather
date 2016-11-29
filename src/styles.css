@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+   font-family:Roboto !important;
+}
+.centered {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
