@@ -20,8 +20,6 @@ import { Observable } from 'rxjs/Observable';
 
 					observer.next(position);
 					observer.complete();
-					
-
 				},
 
 				// Error callback.
