@@ -30,12 +30,12 @@ export class WeatherComponent {
       (position) => {
         this.position = position;
 
-        this._weatherService.getWeather().subscribe(
+        this._weatherService.getWeather(position).subscribe(
           weather => this.weather = weather,
           error => this.errorMessage = <any>error
         );
         
-        this._forecastService.getForecast().subscribe(
+        this._forecastService.getForecast(position).subscribe(
           forecast => this.forecast = forecast,
           error => this.errorMessage = <any>error
         )
