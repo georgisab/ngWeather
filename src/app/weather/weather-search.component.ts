@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from "rxjs/Subject";
-import { WeatherService } from './weather.service';
-import { IWeatherObject } from './weather';
 
 
 @Component({
@@ -20,7 +18,7 @@ export class WeatherSearchComponent implements OnInit {
     cityName: string = '';
    
 
-    constructor(private _weatherService: WeatherService) { }
+    constructor() { }
    
     ngOnInit() { }
 
