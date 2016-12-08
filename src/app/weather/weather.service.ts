@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import { IWeatherObject } from './weather';
+import { IWeatherObject } from '../models/weather';
 
 @Injectable()
 export class WeatherService {

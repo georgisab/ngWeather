@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import { IForecastObject } from './forecast';
+import { IForecastObject } from '../models/forecast';
 
 @Injectable()
 export class ForecastService {
@@ -25,7 +25,7 @@ export class ForecastService {
         return this._http
             .get('http://api.openweathermap.org/data/2.5/forecast?' + query + '&units=metric&appid=0a05d5c30967b3cca4db61408d3eb63c')
             .map((response: Response) => <IForecastObject>response.json())
-            .do(data => console.log('All: ' + JSON.stringify(data)))
+            //.do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
     private handleError(error: Response) {

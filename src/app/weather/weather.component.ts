@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from './weather.service';
-import { IWeatherObject } from './weather';
-import { IForecastObject } from './forecast';
+import { IWeatherObject } from '../models/weather';
+import { IForecastObject } from '../models/forecast';
 import { ForecastService } from './forecast.service';
-import { GeolocationService } from './geolocation.service';
+import { GeolocationService } from '../services/geolocation.service';
+import { MapComponent,Markers } from '../map/map.component';
+
+
 import '@angular/material';
 
 @Component({
-
-
   templateUrl: './weather.component.html',
-  providers: [WeatherService, ForecastService, GeolocationService],
-
-
+  providers: [ForecastService, WeatherService],
+ 
 })
 export class WeatherComponent {
   forecast: IForecastObject;
@@ -21,28 +21,18 @@ export class WeatherComponent {
   position: Position;
   hide: boolean = false;
 
-
   constructor(private _weatherService: WeatherService, private _forecastService: ForecastService, private _geolocation: GeolocationService) { }
 
   ngOnInit() {
-
     this._geolocation.getCurrentPosition().subscribe(
       (position) => {
         this.position = position;
-
-        this._weatherService.getWeather(position).subscribe(
-          weather => this.weather = weather,
-          error => this.errorMessage = <any>error
-        );
-        
-        this._forecastService.getForecast(position).subscribe(
-          forecast => this.forecast = forecast,
-          error => this.errorMessage = <any>error
-        )
+        this.getWeatherByPosition(position)
       },
       error => this.errorMessage = <any>error
     )
   }
+
   onCityEnter(city: string) {
     console.log(this.position.coords.latitude)
     this._weatherService.searchWeatherData(city)
@@ -64,6 +54,23 @@ export class WeatherComponent {
     } else {
       this.hide = true;
     }
-
   }
+
+  onMarkerChange(pos: any):void {
+    console.log(pos);
+    // this. getWeatherByPosition(pos)
+  }
+
+  getWeatherByPosition(position: Position){
+     this._weatherService.getWeather(position).subscribe(
+          weather => this.weather = weather,
+          error => this.errorMessage = <any>error
+        );
+
+        this._forecastService.getForecast(position).subscribe(
+          forecast => this.forecast = forecast,
+          error => this.errorMessage = <any>error
+        )
+  }
+
 }
