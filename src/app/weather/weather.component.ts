@@ -5,6 +5,7 @@ import { IForecastObject } from '../models/forecast';
 import { ForecastService } from './forecast.service';
 import { GeolocationService } from '../services/geolocation.service';
 import { MapComponent,Markers } from '../map/map.component';
+import {Positions} from '../models/Positions';
 
 
 import '@angular/material';
@@ -27,7 +28,7 @@ export class WeatherComponent {
     this._geolocation.getCurrentPosition().subscribe(
       (position) => {
         this.position = position;
-        this.getWeatherByPosition(position)
+        this.getWeatherByPosition(this.mapPosition(position))
       },
       error => this.errorMessage = <any>error
     )
@@ -56,13 +57,12 @@ export class WeatherComponent {
     }
   }
 
-  onMarkerChange(pos: any):void {
-    console.log(pos);
-    // this. getWeatherByPosition(pos)
+  onMarkerChange(pos: Positions):void {
+       this. getWeatherByPosition(pos)
   }
 
-  getWeatherByPosition(position: Position){
-     this._weatherService.getWeather(position).subscribe(
+  getWeatherByPosition(position: Positions){
+       this._weatherService.getWeather(position).subscribe(
           weather => this.weather = weather,
           error => this.errorMessage = <any>error
         );
@@ -71,6 +71,11 @@ export class WeatherComponent {
           forecast => this.forecast = forecast,
           error => this.errorMessage = <any>error
         )
+  }
+
+  mapPosition(position: Position) : Positions{
+    let pos : Positions;
+       return Object.assign(position.coords,pos);
   }
 
 }

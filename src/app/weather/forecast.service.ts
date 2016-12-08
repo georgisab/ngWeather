@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { IForecastObject } from '../models/forecast';
+import { Positions } from '../models/Positions';
 
 @Injectable()
 export class ForecastService {
@@ -13,11 +14,11 @@ export class ForecastService {
     private _forecastUrl = 'http://api.openweathermap.org/data/2.5/forecast?q=Sofia&units=metric&appid=0a05d5c30967b3cca4db61408d3eb63c'
     constructor(private _http: Http) { }
 
-    getForecast(position: Position): Observable<IForecastObject> {
+    getForecast(position: Positions): Observable<IForecastObject> {
         let query: string;
 
         if (position) {
-            query = 'lat=' + position.coords.latitude + '&lon=' + position.coords.longitude
+            query = 'lat=' + position.latitude + '&lon=' + position.longitude
         }
         else {
             query = 'q=Varna';

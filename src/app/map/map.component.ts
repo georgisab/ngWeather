@@ -13,9 +13,10 @@ export class MapComponent implements OnInit {
     position: Position;
     lat: number = 51.678418;
     lng: number = 7.809007;
-    @Output() notify: EventEmitter<Markers> = new EventEmitter<Markers>();
+    @Output() notify: EventEmitter<Positions> = new EventEmitter<Positions>();
     marker = new Markers(this.lat, this.lng);
-
+    pos = new Positions(this.lat, this.lng);
+    
     constructor(private _geolocation: GeolocationService) { }
 
     ngOnInit() {
@@ -32,11 +33,13 @@ export class MapComponent implements OnInit {
             )
     }
     mapClicked($event: MouseEvent) {
+        console.log($event)
         this.marker.lat = $event.coords.lat;
         this.marker.lng = $event.coords.lng;
-        let pos : Positions = {coords :Coordinates = { latitude: this.marker.lat, longitude:this.marker.lng,altitude :1, accuracy: 1, altitudeAccuracy:  null,  heading:  null, speed:  null  }, timestamp: null };
      
-        this.notify.emit(pos);
+        this.pos.latitude =this.marker.lat;
+        this.pos.longitude = this.marker.lng;
+        this.notify.emit(this.pos);
 
     }
 
