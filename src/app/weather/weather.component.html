@@ -1,7 +1,9 @@
-<weather-search (cityEnter)='onCityEnter($event)'>Loading...</weather-search>
+
 
 <div class="row">
-  
+  <div class="col-xs-3 col-sm-3 col-lg-3 text-center">
+  <weather-search (cityEnter)='onCityEnter($event)'>Loading...</weather-search>
+  </div>
   <div *ngIf="weather?.weather[0].icon" class=" col-xs-6 col-sm-6 col-lg-6 text-center">
     <img *ngIf="weather.weather[0].icon" src='http://openweathermap.org/img/w/{{weather?.weather[0].icon}}.png'>
     <h4>{{weather.name}}</h4>
@@ -10,9 +12,12 @@
       <span class="glyphicon glyphicon-collapse-down"></span> Show 5 day / 3 hour forecast
     </button>
   </div>
-  <div class="col-xs-6 col-sm-6 col-lg-6 text-center">
+</div>
+  <div class="row">
+  <div class="col-xs-12 col-sm-12 col-lg-12 text-center">
     <map (notify)='onMarkerChange($event)' >Loading...</map>
   </div>
+
   <div>
     <div *ngIf="hide">
       <div *ngFor="let item of forecast?.list">
